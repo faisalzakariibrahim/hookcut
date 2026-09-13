@@ -196,7 +196,7 @@ Self-hosting HookCut is free. You provide the machine and you only pay for the A
 
 ### 1. Clone
 ```bash
-git clone https://github.com/mutonby/openshorts.git
+git clone https://github.com/faisalzakariibrahim/openshorts.git
 cd HookCut
 ```
 
@@ -334,7 +334,7 @@ Pass `webhook_url` (and optionally `webhook_secret`) to `POST /api/process` and 
  "clips": [{"index": 0, "title": "…", "video_url": "…", "download_url": "…"}]}
 ```
 
-With a secret, the body is signed: `X-HookCut-Signature: sha256=<hmac-sha256(body)>`.
+With a secret, the body is signed: `X-OpenShorts-Signature: sha256=<hmac-sha256(body)>`.
 
 ### CLI
 
