@@ -1,10 +1,14 @@
-# HookCut — operator notes
+# Viralyte — operator notes
 
-**Product name:** HookCut  
-**Canonical site (placeholder):** [https://hookcut.app](https://hookcut.app)  
+**Product name:** Viralyte  
+**Canonical site:** [https://viralyte.app](https://viralyte.app)  
 **Upstream:** fork of [mutonby/openshorts](https://github.com/mutonby/openshorts) (core app MIT)
 
-## Monetization (`BILLING_ENABLED`)
+## Monetization notes
+
+- **Own billing on MIT core.** You may monetize a hosted service built on the MIT-licensed core (self-hosted app outside `cloud/`) with your own billing.
+- **Do NOT use upstream `cloud/` for third-party SaaS** without a commercial license. The [`cloud/`](cloud/LICENSE) directory (billing, managed keys, hosted-service infrastructure behind `BILLING_ENABLED`) is source-available under the upstream commercial license — readable and self-hostable for personal/internal use, but not for offering to third parties as a paid/hosted service without permission.
+- For a commercial license covering `cloud/`, contact: **jc.caverogracia@gmail.com**
 
 When `BILLING_ENABLED` is truthy, the optional `cloud/` billing stack is active (Stripe Checkout + Customer Portal). Self-hosting the core app never requires this.
 
@@ -30,7 +34,7 @@ Ensure those keys exist and are active on the Stripe account before enabling bil
 
 ## Brand checklist (light)
 
-- Public product name: **HookCut**
-- Site placeholder: **hookcut.app**
-- Dashboard package name: `hookcut-app`
+- Public product name: **Viralyte**
+- Site: **viralyte.app**
+- Dashboard package name: `viralyte-app`
 - Repo rename and asset/logo swaps are out of scope for this light rebrand

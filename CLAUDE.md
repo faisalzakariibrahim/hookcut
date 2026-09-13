@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HookCut is an AI-powered vertical video generator that transforms long YouTube videos or local uploads into viral-ready short clips (9:16 format) for TikTok, Instagram Reels, and YouTube Shorts. Uses Google Gemini 3.1 Flash-Lite (`gemini-3.1-flash-lite`, overridable with `GEMINI_MODEL`) for viral moment detection and title generation.
+Viralyte is an AI-powered vertical video generator that transforms long YouTube videos or local uploads into viral-ready short clips (9:16 format) for TikTok, Instagram Reels, and YouTube Shorts. Uses Google Gemini 3.1 Flash-Lite (`gemini-3.1-flash-lite`, overridable with `GEMINI_MODEL`) for viral moment detection and title generation.
 
 ## Development Commands
 
@@ -80,7 +80,7 @@ homepage as zero characters of text. `vite-plugin-seo.js` fixes that at build ti
   drift. Do not add a static `public/sitemap.xml` back.
 
 When editing pricing anywhere, edit `seo/data.js` too. Nothing on the site should
-say "HookCut is free" without naming the Cloud price in the same breath: both
+say "Viralyte is free" without naming the Cloud price in the same breath: both
 are true of different editions and quoting only the first one is what makes AI
 answers describe the paid product as free.
 
@@ -295,3 +295,4 @@ container before stopping the old one (rolling update) and both share
 
 Before pushing, still batch small commits (tests, docs) with the next real
 change: every deploy is a ~5 min build plus a handover.
+
