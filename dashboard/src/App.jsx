@@ -183,7 +183,22 @@ const UserProfileSelector = ({ profiles, selectedUserId, onSelect, onConnect }) 
   );
 };
 
-const SESSION_KEY = 'openshorts_session';
+// Brand rename: migrate once from openshorts_session → viralyte_session.
+const SESSION_KEY = 'viralyte_session';
+const LEGACY_SESSION_KEY = 'openshorts_session';
+(function migrateSessionKey() {
+  try {
+    if (!localStorage.getItem(SESSION_KEY)) {
+      const legacy = localStorage.getItem(LEGACY_SESSION_KEY);
+      if (legacy) {
+        localStorage.setItem(SESSION_KEY, legacy);
+        localStorage.removeItem(LEGACY_SESSION_KEY);
+      }
+    } else {
+      localStorage.removeItem(LEGACY_SESSION_KEY);
+    }
+  } catch (_) { /* private mode */ }
+})();
 // Matches the self-host JOB_RETENTION_SECONDS default. A restore whose job was
 // already purged server-side fails gracefully and clears the saved session.
 const SESSION_MAX_AGE = 86400000; // 24 hours
@@ -473,7 +488,7 @@ function App() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `openshorts_clips_${(jobId || '').slice(0, 8)}.zip`;
+      a.download = `viralyte_clips_${(jobId || '').slice(0, 8)}.zip`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -902,7 +917,7 @@ function App() {
         <span className={collapsed ? 'hidden lg:block truncate' : 'truncate'}>landing page</span>
       </a>
       <a
-        href="https://github.com/mutonby/openshorts"
+        href="https://github.com/faisalzakariibrahim/viralyte"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2 px-3 py-2 text-xs lowercase text-muted hover:text-ink2 transition-colors"
@@ -920,11 +935,11 @@ function App() {
         </a>
       )}
       <a
-        href="mailto:info@openshorts.app"
+        href="mailto:info@viralyte.app"
         className="flex items-center gap-2 px-3 py-2 text-xs lowercase text-muted hover:text-ink2 transition-colors"
       >
         <Mail size={14} className="shrink-0" />
-        <span className={collapsed ? 'hidden lg:block truncate' : 'truncate'}>info@openshorts.app</span>
+        <span className={collapsed ? 'hidden lg:block truncate' : 'truncate'}>info@viralyte.app</span>
       </a>
     </>
   );
@@ -935,9 +950,9 @@ function App() {
     <div className="hidden md:flex w-20 lg:w-64 bg-paper2 border-r border-rule flex-col h-full shrink-0 transition-all duration-300">
       <a href="#landing" className="p-6 flex items-center gap-3" title="go to landing page">
         <div className="w-8 h-8 bg-paper3 rounded-input flex items-center justify-center shrink-0 overflow-hidden border border-rule">
-          <img src="/logo-openshorts.png" alt="Logo" className="w-full h-full object-cover" />
+          <img src="/logo-viralyte.png" alt="Viralyte" className="w-full h-full object-cover" />
         </div>
-        <span className="font-display lowercase text-lg text-ink hidden lg:block">openshorts</span>
+        <span className="font-display lowercase text-lg text-ink hidden lg:block">viralyte</span>
       </a>
 
       <nav className="flex-1 px-4 py-4 space-y-1">
@@ -986,9 +1001,9 @@ function App() {
         <div className="flex items-center justify-between px-5 h-14 border-b border-rule shrink-0">
           <a href="#landing" className="flex items-center gap-2.5" onClick={() => setNavOpen(false)}>
             <div className="w-7 h-7 bg-paper3 rounded-input overflow-hidden border border-rule shrink-0">
-              <img src="/logo-openshorts.png" alt="" className="w-full h-full object-cover" />
+              <img src="/logo-viralyte.png" alt="" className="w-full h-full object-cover" />
             </div>
-            <span className="font-display lowercase text-lg text-ink">openshorts</span>
+            <span className="font-display lowercase text-lg text-ink">viralyte</span>
           </a>
           <button
             onClick={() => setNavOpen(false)}
@@ -1088,7 +1103,7 @@ function App() {
               <Menu size={20} />
             </button>
             <span className="md:hidden font-display lowercase text-base text-ink truncate">
-              {activeNav?.label || 'openshorts'}
+              {activeNav?.label || 'viralyte'}
             </span>
             {status !== 'idle' && (
               <button
@@ -1166,10 +1181,10 @@ function App() {
                 <span className="font-medium text-ink">Required API keys missing.</span>{' '}
                 <span className="text-muted">
                   {!apiKey && !uploadPostKey
-                    ? 'Set your Gemini and Upload-Post API keys to use OpenShorts.'
+                    ? 'Set your Gemini and Upload-Post API keys to use Viralyte.'
                     : !apiKey
-                      ? 'Set your Gemini API key to use OpenShorts.'
-                      : 'Set your Upload-Post API key to use OpenShorts.'}
+                      ? 'Set your Gemini API key to use Viralyte.'
+                      : 'Set your Upload-Post API key to use Viralyte.'}
                 </span>
               </div>
             </div>
@@ -1913,7 +1928,7 @@ function App() {
       >
         <div className="space-y-4">
           <p className="text-sm text-muted">
-            OpenShorts needs both a <strong className="text-ink2">Gemini</strong> API key and an <strong className="text-ink2">Upload-Post</strong> API key. Both have free tiers.
+            Viralyte needs both a <strong className="text-ink2">Gemini</strong> API key and an <strong className="text-ink2">Upload-Post</strong> API key. Both have free tiers.
           </p>
 
           {/* Gemini block */}

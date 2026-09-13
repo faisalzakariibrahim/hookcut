@@ -3,11 +3,29 @@
 // a 402 (quota exceeded) into a typed QuotaError the UI can catch to prompt a top-up.
 import { getApiUrl } from '../config';
 
-export const AUTH_TOKEN_KEY = 'openshorts_auth';
+// Brand rename: migrate once from openshorts_auth → viralyte_auth.
+export const AUTH_TOKEN_KEY = 'viralyte_auth';
+const LEGACY_AUTH_TOKEN_KEY = 'openshorts_auth';
+(function migrateAuthToken() {
+  try {
+    if (!localStorage.getItem(AUTH_TOKEN_KEY)) {
+      const legacy = localStorage.getItem(LEGACY_AUTH_TOKEN_KEY);
+      if (legacy) {
+        localStorage.setItem(AUTH_TOKEN_KEY, legacy);
+        localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
+      }
+    } else {
+      localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY);
+    }
+  } catch (_) { /* private mode */ }
+})();
 
 export const getToken = () => localStorage.getItem(AUTH_TOKEN_KEY) || '';
 export const setToken = (t) => localStorage.setItem(AUTH_TOKEN_KEY, t);
-export const clearToken = () => localStorage.removeItem(AUTH_TOKEN_KEY);
+export const clearToken = () => {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  try { localStorage.removeItem(LEGACY_AUTH_TOKEN_KEY); } catch (_) { /* ignore */ }
+};
 
 export class QuotaError extends Error {
   constructor(detail) {

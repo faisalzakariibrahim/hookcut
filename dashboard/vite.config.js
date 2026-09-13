@@ -16,6 +16,8 @@ export default defineConfig({
   plugins: [react(), seo()],
   server: {
     allowedHosts: [
+      'viralyte.app',
+      'www.viralyte.app',
       'openshorts.app',
       'www.openshorts.app'
     ],
